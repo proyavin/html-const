@@ -70,7 +70,7 @@ export class HomeComponent implements OnInit {
       reader.onload = function (e : any) {
         _this.importService.getData(e.target.result)
           .subscribe((data: any[]) => {
-            if(data[1] != undefined) {
+            if(data[1] != undefined || data.length > 0) {
               for(let i = 0; i < data.length; i++) {
                 _this.stService.addSite(data[i])
               }
