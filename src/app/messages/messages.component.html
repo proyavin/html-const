@@ -1,0 +1,9 @@
+<div *ngIf="messageService.messages.length">
+  <div
+    *ngFor="let message of messageService.messages"
+    class="alert"
+    [class.alert-success]="message.type == 'success'"
+    [class.alert-danger]="message.type == 'danger'"
+    > {{ message.msg }}
+   </div>
+</div>

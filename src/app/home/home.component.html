@@ -1,0 +1,50 @@
+<div class="card">
+    <div class="card-header">Главная страница</div>
+    <div class="card-body">
+        <form action="">
+            <div class="form-group">
+                <label for="sitesearch">Найти сайт</label>
+                <input
+                    [(ngModel)]="searchRequest"
+                    class="form-control"
+                    id="sitesearch"
+                    name="sitesearch"
+                    placeholder="Введите название или описание сайта"
+                    (ngModelChange)="searchSites()"
+                    >
+            </div>
+        </form>
+        <hr>
+        <h4 class="mb-4 d-flex justify-content-between align-items-center">
+            Список сайтов
+            <div class="d-flex align-items-center">
+                <form action="">
+                  <input type="file" style="display: none;" id="importFile" name="importFile" accept=".json" [(ngModel)]="jsonFile" (change)="impotJson($event)">
+                  <label class="btn btn-primary mb-0" for="importFile">Импортировать</label>
+                </form>
+                <a routerLink="/site/new" class="btn btn-success ml-1">Новый</a>
+            </div>
+        </h4>
+        <ul class="nav nav-pills">
+            <li class="nav-item mb-4 mr-2">
+                <span class="navbar-text">Фильтр:</span>
+            </li>
+            <li class="nav-item">
+                <button class="btn btn-link nav-link" [class.active]="sort == 'ASC'" (click)="sortItems('ASC')">По возрастанию</button>
+            </li>
+            <li class="nav-item">
+                <button class="btn btn-link nav-link" [class.active]="sort == 'DESC'" (click)="sortItems('DESC')">По убыванию</button>
+            </li>
+        </ul>
+        <ng-container *ngIf="sitesShow.length > 0; else listEmpty">
+          <app-site
+          *ngFor="let item of sitesShow | paginate: { itemsPerPage: 5, currentPage: p }"
+          [site]="item"
+          (remove)="onRemoveSite($event)"
+          ></app-site>
+        </ng-container>
+        <ng-template #listEmpty><b>Сайтов не найдено</b></ng-template>
+        <pagination-controls *ngIf="sitesShow.length > 5" (pageChange)="p = $event"></pagination-controls>
+    </div>
+    <div class="card-footer text-muted">Сайтов всего: {{ sitesCount }}</div>
+</div>

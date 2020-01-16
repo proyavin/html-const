@@ -1,0 +1,13 @@
+<div class="card mb-2">
+    <div class="card-body">
+        <h5 class="card-title">{{ site.title }}</h5>
+        <h6 class="card-subtitle mb-2 text-muted font-weight-normal">
+            ID: {{ site.id }} | Добавлен: {{ getDate() }} | Обновлен: {{ getDate('updated') }}
+        </h6>
+        <p class="card-text">{{ site.desc }}</p>
+        <a [href]="'/preview/?id=' + site.id" target="_blank" class="card-link">Посмотреть превью</a>
+        <a [routerLink]="'/site/' + site.id + '/edit'" class="card-link">Редактировать</a>
+        <a [href]="jsonFileUrl" class="card-link" download="{{ site.title }}.json">в JSON</a>
+        <button class="card-link text-danger btn btn-link" (click)="delete()">Удалить</button>
+    </div>
+</div>
